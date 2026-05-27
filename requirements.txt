@@ -1,6 +1,6 @@
 voila
 Pillow==6.2.2; python_version < '3.5'
 Pillow==10.0.1; python_version >= '3.5'
-fastai2>=0.0.5
+fastai
 packaging
 ipywidgets==7.5.1
