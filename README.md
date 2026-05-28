@@ -2,7 +2,7 @@
 
 **Deep learning with small data**
 
-Built a convolutional neural network (CNN) image classifier during Jeremy Howard's Practical Deep Learning for Coders (fast.ai). The model distinguishes between two types of snowmen: Olaf from Disney's *Frozen* (friendly) and the abominable snowman (not friendly, run).
+Built a convolutional neural network (CNN) image classifier during Jeremy Howard's Practical Deep Learning for Coders (fast.ai). The model distinguishes between a friendly snowman (Olaf) and a hostile snowman (Marshmallow), both from Disney's *Frozen*.
 
 Trained on just ~150 images per class using transfer learning. The goal: show that you don't need a large dataset to build an accurate classifier, and make AI tangible and fun for kids.
 
