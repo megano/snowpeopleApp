@@ -4,7 +4,7 @@
 
 Built a convolutional neural network (CNN) image classifier during Jeremy Howard's Practical Deep Learning for Coders (fast.ai). The model tells apart three characters from Disney's *Frozen*: Olaf the snowman, Elsa, and Sven the reindeer.
 
-Trained on about 34 images per class (101 total) using transfer learning, it classifies the held-out validation set with 100% accuracy. The goal: show you don't need a large dataset to build an accurate classifier, and make AI tangible and fun for kids.
+Trained on about 34 images per class (101 total) using transfer learning, it classifies the small held-out validation set (20 images) with 100% accuracy, an encouraging result on limited data rather than a large-scale benchmark. The goal: show you don't need a large dataset to build an accurate classifier, and make AI tangible and fun for kids.
 
 No children were harmed in training or testing this CNN, but we may have tricked them into learning a bit about AI. ;)
 
