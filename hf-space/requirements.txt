@@ -1,0 +1,5 @@
+# Pinned to the Colab training env (Python 3.12.13) to fix the torch.load
+# unpickling error on the Space. cpu-build torch matches HF free CPU Spaces.
+fastai==2.8.7
+torch==2.11.0
+gradio
