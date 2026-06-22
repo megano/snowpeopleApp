@@ -41,14 +41,18 @@ class _HookBwd:
 
 
 def _attention_overlay(pil, act, grad):
-    """Blend a Grad-CAM heatmap over the input image (both 224x224)."""
+    """Spotlight where the model looked: keep the original image bright and add a
+    warm glow only over the hot regions (cold areas stay the real picture)."""
     cam = (grad.mean(dim=[1, 2], keepdim=True) * act).sum(0).relu()
     cam = (cam - cam.min()) / (cam.max() - cam.min() + 1e-8)
-    cam_np = cam.detach().cpu().numpy()
-    cam_img = Image.fromarray((cam_np * 255).astype("uint8")).resize((224, 224), Image.BILINEAR)
-    heat = (cm.magma(np.array(cam_img) / 255.0)[..., :3] * 255).astype("uint8")
-    base = pil.resize((224, 224)).convert("RGB")
-    return Image.blend(base, Image.fromarray(heat), alpha=0.5)
+    cam_np = np.array(
+        Image.fromarray((cam.detach().cpu().numpy() * 255).astype("uint8")).resize((224, 224), Image.BILINEAR)
+    ) / 255.0
+    base = np.array(pil.resize((224, 224)).convert("RGB")).astype(float)
+    heat = cm.magma(cam_np)[..., :3] * 255.0
+    alpha = (cam_np * 0.75)[..., None]            # opacity tracks attention
+    out = base * (1 - alpha) + heat * alpha        # cold areas keep the original picture
+    return Image.fromarray(out.astype("uint8"))
 
 
 def classify(img):
