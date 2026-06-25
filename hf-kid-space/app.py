@@ -36,16 +36,16 @@ CORRECT_PART = {
     "elsa_028.jpg": "Face / eyes",
     "elsa_015.jpg": "Dress / body",
     "elsa_026.jpg": "Hair / braid",
-    "sven_004.jpg": "Face / eyes",
-    "sven_005.jpg": "Fluffy mane",
-    "sven_008.jpg": "Fluffy mane",
+    "sven_004.jpg": "Fuzzy face & mane",
+    "sven_005.jpg": "Fuzzy face & mane",
+    "sven_008.jpg": "Fuzzy face & mane",
 }
 
 # Tappable options per character (correct answer + plausible distractors).
 OPTIONS = {
     "olaf": ["Carrot nose", "Face", "Whole body", "Coal buttons"],
     "elsa": ["Face / eyes", "Hair / braid", "Dress / body", "Hands"],
-    "sven": ["Face / eyes", "Antlers", "Fluffy mane", "Legs"],
+    "sven": ["Fuzzy face & mane", "Antlers", "Nose", "Legs"],
 }
 
 
