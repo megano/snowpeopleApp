@@ -110,7 +110,7 @@ def on_select(evt: gr.SelectData):
 
 def on_reveal(path, correct, guess):
     if not path:
-        return gr.update(), gr.update(value="Pick a picture first!", visible=True)
+        return gr.update(), gr.update(value="Pick a picture first!", visible=True), gr.update()
     overlay = _overlay(path)
     if guess is None:
         fb = "Pick a part first, then press Show me!"
@@ -118,10 +118,11 @@ def on_reveal(path, correct, guess):
         fb = f"### You got it! The computer looked most at the **{correct}**."
     else:
         fb = f"### Good guess! But the computer actually looked most at the **{correct}**."
-    return gr.update(value=overlay, visible=True), gr.update(value=fb, visible=True)
+    return (gr.update(value=overlay, visible=True), gr.update(value=fb, visible=True),
+            gr.update(label="Pick again!"))
 
 
-CSS = ".gradio-container { max-width: 1200px !important; }"
+CSS = ".gradio-container { max-width: 640px !important; }"
 
 with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     gr.Markdown(
@@ -132,22 +133,20 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     state_path = gr.State()
     state_correct = gr.State()
 
-    with gr.Row():
-        with gr.Column():
-            gallery = gr.Gallery(value=THUMB_PATHS, label="Tap a picture", columns=3, rows=3,
-                                 height=430, object_fit="cover", allow_preview=False)
-        with gr.Column():
-            pred_md = gr.Markdown(visible=False)
-            options = gr.Radio(choices=[], label="Which part did the computer look at most?", visible=False)
-            reveal_btn = gr.Button("Show me!", variant="primary", visible=False)
-            heat = gr.Image(label="Where the computer looked", visible=False)
-            feedback = gr.Markdown(visible=False)
+    pred_md = gr.Markdown(visible=False)
+    options = gr.Radio(choices=[], label="Which part did the computer look at most?", visible=False)
+    reveal_btn = gr.Button("Show me!", variant="primary", visible=False)
+    heat = gr.Image(label="Where the computer looked", visible=False)
+    feedback = gr.Markdown(visible=False)
+
+    gallery = gr.Gallery(value=THUMB_PATHS, label="Tap a picture", columns=3,
+                         object_fit="cover", allow_preview=False)
 
     gallery.select(
         on_select, None,
         [state_path, state_correct, pred_md, options, reveal_btn, heat, feedback],
     )
-    reveal_btn.click(on_reveal, [state_path, state_correct, options], [heat, feedback])
+    reveal_btn.click(on_reveal, [state_path, state_correct, options], [heat, feedback, gallery])
 
 if __name__ == "__main__":
     demo.launch()
