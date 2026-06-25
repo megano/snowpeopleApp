@@ -134,8 +134,8 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
 
     with gr.Row():
         with gr.Column():
-            gallery = gr.Gallery(value=THUMB_PATHS, label="Tap a picture", columns=3,
-                                 object_fit="cover", allow_preview=False)
+            gallery = gr.Gallery(value=THUMB_PATHS, label="Tap a picture", columns=3, rows=3,
+                                 height=430, object_fit="cover", allow_preview=False)
         with gr.Column():
             pred_md = gr.Markdown(visible=False)
             options = gr.Radio(choices=[], label="Which part did the computer look at most?", visible=False)
