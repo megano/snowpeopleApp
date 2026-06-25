@@ -130,7 +130,7 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     state_correct = gr.State()
 
     gallery = gr.Gallery(value=EXAMPLE_PATHS, label="Tap a picture", columns=3, rows=3,
-                         height="60vh", object_fit="cover", allow_preview=False)
+                         height=440, object_fit="contain", allow_preview=False)
     pred_md = gr.Markdown(visible=False)
     options = gr.Radio(choices=[], label="Which part did the computer look at most?", visible=False)
     reveal_btn = gr.Button("Show me!", variant="primary", visible=False)
