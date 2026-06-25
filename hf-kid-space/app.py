@@ -122,7 +122,7 @@ def on_reveal(path, correct, guess):
             gr.update(label="Pick again!"))
 
 
-CSS = ".gradio-container { max-width: 640px !important; }"
+CSS = ".gradio-container { max-width: 1100px !important; }"
 
 with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     gr.Markdown(
@@ -133,14 +133,16 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     state_path = gr.State()
     state_correct = gr.State()
 
-    pred_md = gr.Markdown(visible=False)
-    options = gr.Radio(choices=[], label="Which part did the computer look at most?", visible=False)
-    reveal_btn = gr.Button("Show me!", variant="primary", visible=False)
-    heat = gr.Image(label="Where the computer looked", visible=False)
-    feedback = gr.Markdown(visible=False)
-
-    gallery = gr.Gallery(value=THUMB_PATHS, label="Tap a picture", columns=3,
-                         object_fit="cover", allow_preview=False)
+    with gr.Row():
+        with gr.Column(min_width=400):
+            pred_md = gr.Markdown(visible=False)
+            options = gr.Radio(choices=[], label="Which part did the computer look at most?", visible=False)
+            reveal_btn = gr.Button("Show me!", variant="primary", visible=False)
+            heat = gr.Image(label="Where the computer looked", visible=False)
+            feedback = gr.Markdown(visible=False)
+        with gr.Column(min_width=400):
+            gallery = gr.Gallery(value=THUMB_PATHS, label="Tap a picture", columns=3,
+                                 object_fit="cover", allow_preview=False)
 
     gallery.select(
         on_select, None,
