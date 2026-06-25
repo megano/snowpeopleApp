@@ -118,7 +118,9 @@ def on_reveal(path, correct, guess):
     return gr.update(value=overlay, visible=True), gr.update(value=fb, visible=True)
 
 
-with gr.Blocks(title="How does the computer know?") as demo:
+CSS = ".gradio-container { max-width: 100% !important; padding-left: 1.5% !important; padding-right: 1.5% !important; }"
+
+with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     gr.Markdown(
         "# How does the computer know?\n"
         "Tap a picture. The computer guesses who it is. Then *you* guess which "
@@ -128,7 +130,7 @@ with gr.Blocks(title="How does the computer know?") as demo:
     state_correct = gr.State()
 
     gallery = gr.Gallery(value=EXAMPLE_PATHS, label="Tap a picture", columns=3, rows=3,
-                         height="50vh", object_fit="contain", allow_preview=False)
+                         height="60vh", object_fit="cover", allow_preview=False)
     pred_md = gr.Markdown(visible=False)
     options = gr.Radio(choices=[], label="Which part did the computer look at most?", visible=False)
     reveal_btn = gr.Button("Show me!", variant="primary", visible=False)
