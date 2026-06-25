@@ -27,6 +27,9 @@ EXAMPLE_PATHS = [
     f"{EX}/elsa_028.jpg", f"{EX}/elsa_015.jpg", f"{EX}/elsa_026.jpg",
     f"{EX}/sven_004.jpg", f"{EX}/sven_005.jpg", f"{EX}/sven_008.jpg",
 ]
+# Square padded thumbnails for a clean, uniform gallery grid (display only).
+# The model still runs on the originals in EXAMPLE_PATHS (selected by index).
+THUMB_PATHS = [p.replace("examples/", "examples_thumb/") for p in EXAMPLE_PATHS]
 
 # Pre-labeled hottest region per image (from Grad-CAM).
 CORRECT_PART = {
@@ -118,7 +121,7 @@ def on_reveal(path, correct, guess):
     return gr.update(value=overlay, visible=True), gr.update(value=fb, visible=True)
 
 
-CSS = ".gradio-container { max-width: 100% !important; padding-left: 1.5% !important; padding-right: 1.5% !important; }"
+CSS = ".gradio-container { max-width: 640px !important; }"
 
 with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     gr.Markdown(
@@ -129,8 +132,8 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     state_path = gr.State()
     state_correct = gr.State()
 
-    gallery = gr.Gallery(value=EXAMPLE_PATHS, label="Tap a picture", columns=3, rows=3,
-                         height=440, object_fit="contain", allow_preview=False)
+    gallery = gr.Gallery(value=THUMB_PATHS, label="Tap a picture", columns=3,
+                         object_fit="cover", allow_preview=False)
     pred_md = gr.Markdown(visible=False)
     options = gr.Radio(choices=[], label="Which part did the computer look at most?", visible=False)
     reveal_btn = gr.Button("Show me!", variant="primary", visible=False)
