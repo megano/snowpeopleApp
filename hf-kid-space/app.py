@@ -135,7 +135,7 @@ def on_reveal(path, correct, guess, seen):
     else:
         fb = f"### Good guess! {detail}"
     return (gr.update(value=overlay, visible=True), gr.update(value=fb, visible=True),
-            gr.update(label="Pick again!"), seen)
+            gr.update(value="### Pick again!"), seen)
 
 
 CSS = ".gradio-container { max-width: 640px !important; margin: 0 auto !important; }"
@@ -154,9 +154,10 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     options = gr.Radio(choices=[], label="Which part did the computer look at most?", visible=False)
     reveal_btn = gr.Button("Show me!", variant="primary", visible=False)
     feedback = gr.Markdown(visible=False)
-    heat = gr.Image(label="Where the computer looked", visible=False)
+    heat = gr.Image(show_label=False, visible=False)
 
-    gallery = gr.Gallery(value=THUMB_PATHS, label="Tap a picture", columns=3, rows=3,
+    gallery_header = gr.Markdown("### Tap a picture")
+    gallery = gr.Gallery(value=THUMB_PATHS, show_label=False, columns=3, rows=3,
                          height="70vh", object_fit="cover", allow_preview=False)
 
     gallery.select(
@@ -164,7 +165,7 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
         [state_path, state_correct, pred_md, options, reveal_btn, heat, feedback, gallery],
     )
     reveal_btn.click(on_reveal, [state_path, state_correct, options, seen_sven],
-                     [heat, feedback, gallery, seen_sven])
+                     [heat, feedback, gallery_header, seen_sven])
 
 if __name__ == "__main__":
     demo.launch()
