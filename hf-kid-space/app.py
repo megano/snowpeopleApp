@@ -105,7 +105,6 @@ def on_select(evt: gr.SelectData):
         gr.update(visible=True),
         gr.update(value=None, visible=False),
         gr.update(visible=False),
-        gr.update(visible=True),
     )
 
 
@@ -123,8 +122,7 @@ def on_reveal(path, correct, guess):
             gr.update(label="Pick again!"))
 
 
-CSS = (".gradio-container { max-width: 1100px !important; } "
-       "#pics { max-width: 520px; margin: 0 auto; }")
+CSS = ".gradio-container { max-width: 640px !important; }"
 
 with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     gr.Markdown(
@@ -135,20 +133,18 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     state_path = gr.State()
     state_correct = gr.State()
 
-    with gr.Row():
-        with gr.Column(min_width=400, visible=False) as guess_col:
-            pred_md = gr.Markdown(visible=False)
-            options = gr.Radio(choices=[], label="Which part did the computer look at most?", visible=False)
-            reveal_btn = gr.Button("Show me!", variant="primary", visible=False)
-            heat = gr.Image(label="Where the computer looked", visible=False)
-            feedback = gr.Markdown(visible=False)
-        with gr.Column(min_width=400):
-            gallery = gr.Gallery(value=THUMB_PATHS, label="Tap a picture", columns=3,
-                                 object_fit="cover", allow_preview=False, elem_id="pics")
+    pred_md = gr.Markdown(visible=False)
+    options = gr.Radio(choices=[], label="Which part did the computer look at most?", visible=False)
+    reveal_btn = gr.Button("Show me!", variant="primary", visible=False)
+    heat = gr.Image(label="Where the computer looked", visible=False)
+    feedback = gr.Markdown(visible=False)
+
+    gallery = gr.Gallery(value=THUMB_PATHS, label="Tap a picture", columns=3,
+                         object_fit="cover", allow_preview=False)
 
     gallery.select(
         on_select, None,
-        [state_path, state_correct, pred_md, options, reveal_btn, heat, feedback, guess_col],
+        [state_path, state_correct, pred_md, options, reveal_btn, heat, feedback],
     )
     reveal_btn.click(on_reveal, [state_path, state_correct, options], [heat, feedback, gallery])
 
