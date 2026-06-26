@@ -54,10 +54,10 @@ OPTIONS = {
 # Optional per-image explanation that overrides the generic "looked most at X" line.
 EXPLAIN = {
     "olaf_004.png": "The computer did look at Olaf's whole body, but it looked the *most* at the bright yellow part, his face!",
-    "sven_004.jpg": "In all these images the computer looked most at his fuzzy face and mane.",
-    "sven_005.jpg": "In all these images the computer looked most at his fuzzy face and mane.",
-    "sven_008.jpg": "In all these images the computer looked most at his fuzzy face and mane.",
 }
+
+# Once the kid has revealed all three Sven images, point out the pattern (no spoiler before then).
+SVEN_FILES = {"sven_004.jpg", "sven_005.jpg", "sven_008.jpg"}
 
 
 class _Hook:
@@ -116,11 +116,16 @@ def on_select(evt: gr.SelectData):
     )
 
 
-def on_reveal(path, correct, guess):
+def on_reveal(path, correct, guess, seen):
     if not path:
-        return gr.update(), gr.update(value="Pick a picture first!", visible=True), gr.update()
+        return gr.update(), gr.update(value="Pick a picture first!", visible=True), gr.update(), seen
     overlay = _overlay(path)
-    detail = EXPLAIN.get(os.path.basename(path), f"The computer looked most at the **{correct}**.")
+    name = os.path.basename(path)
+    detail = EXPLAIN.get(name, f"The computer looked most at the **{correct}**.")
+    if name in SVEN_FILES:                       # track Sven reveals; reward seeing all three
+        seen = list({*seen, name})
+        if set(seen) >= SVEN_FILES:
+            detail = "In all three pictures, the computer looked most at Sven's fuzzy face and mane!"
     if guess is None:
         fb = "Pick a part first, then press Show me!"
     elif guess == correct:
@@ -128,7 +133,7 @@ def on_reveal(path, correct, guess):
     else:
         fb = f"### Good guess! {detail}"
     return (gr.update(value=overlay, visible=True), gr.update(value=fb, visible=True),
-            gr.update(label="Pick again!"))
+            gr.update(label="Pick again!"), seen)
 
 
 CSS = ".gradio-container { max-width: 640px !important; }"
@@ -141,6 +146,7 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     )
     state_path = gr.State()
     state_correct = gr.State()
+    seen_sven = gr.State([])
 
     pred_md = gr.Markdown(visible=False)
     options = gr.Radio(choices=[], label="Which part did the computer look at most?", visible=False)
@@ -155,7 +161,8 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
         on_select, None,
         [state_path, state_correct, pred_md, options, reveal_btn, heat, feedback],
     )
-    reveal_btn.click(on_reveal, [state_path, state_correct, options], [heat, feedback, gallery])
+    reveal_btn.click(on_reveal, [state_path, state_correct, options, seen_sven],
+                     [heat, feedback, gallery, seen_sven])
 
 if __name__ == "__main__":
     demo.launch()
