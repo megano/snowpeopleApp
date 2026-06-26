@@ -137,7 +137,7 @@ def on_reveal(path, correct, guess, seen):
             gr.update(label="Pick again!"), seen)
 
 
-CSS = ".gradio-container { max-width: 640px !important; }"
+CSS = ".gradio-container { max-width: 640px !important; margin: 0 auto !important; }"
 
 with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     gr.Markdown(
@@ -156,7 +156,7 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     heat = gr.Image(label="Where the computer looked", visible=False)
 
     gallery = gr.Gallery(value=THUMB_PATHS, label="Tap a picture", columns=3, rows=3,
-                         height=640, object_fit="cover", allow_preview=False)
+                         height="70vh", object_fit="cover", allow_preview=False)
 
     gallery.select(
         on_select, None,
