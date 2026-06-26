@@ -136,8 +136,8 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     pred_md = gr.Markdown(visible=False)
     options = gr.Radio(choices=[], label="Which part did the computer look at most?", visible=False)
     reveal_btn = gr.Button("Show me!", variant="primary", visible=False)
-    heat = gr.Image(label="Where the computer looked", visible=False)
     feedback = gr.Markdown(visible=False)
+    heat = gr.Image(label="Where the computer looked", visible=False)
 
     gallery = gr.Gallery(value=THUMB_PATHS, label="Tap a picture", columns=3,
                          object_fit="cover", allow_preview=False)
