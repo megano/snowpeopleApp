@@ -110,7 +110,6 @@ def on_select(evt: gr.SelectData):
         gr.update(visible=True),
         gr.update(value=None, visible=False),
         gr.update(visible=False),
-        gr.update(height=360),
     )
 
 
@@ -154,12 +153,12 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     heat = gr.Image(show_label=False, visible=False)
 
     gallery_header = gr.Markdown("### Tap a picture")
-    gallery = gr.Gallery(value=THUMB_PATHS, show_label=False, columns=3, rows=3,
-                         height=540, object_fit="cover", allow_preview=False)
+    gallery = gr.Gallery(value=THUMB_PATHS, show_label=False, columns=3,
+                         object_fit="cover", allow_preview=False)
 
     gallery.select(
         on_select, None,
-        [state_path, state_correct, pred_md, options, reveal_btn, heat, feedback, gallery],
+        [state_path, state_correct, pred_md, options, reveal_btn, heat, feedback],
     )
     reveal_btn.click(on_reveal, [state_path, state_correct, options, seen_sven],
                      [heat, feedback, gallery_header, seen_sven])
