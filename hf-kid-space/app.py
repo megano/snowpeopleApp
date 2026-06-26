@@ -24,7 +24,7 @@ EX = "examples"
 # Display order: grouped by character.
 EXAMPLE_PATHS = [
     f"{EX}/olaf_009.png", f"{EX}/olaf_028.png", f"{EX}/olaf_004.png",
-    f"{EX}/elsa_028.jpg", f"{EX}/elsa_015.jpg", f"{EX}/elsa_026.jpg",
+    f"{EX}/elsa_026.jpg", f"{EX}/elsa_084.jpg", f"{EX}/elsa_107.jpg",
     f"{EX}/sven_004.jpg", f"{EX}/sven_005.jpg", f"{EX}/sven_008.jpg",
 ]
 # Square padded thumbnails for a clean, uniform gallery grid (display only).
@@ -36,9 +36,9 @@ CORRECT_PART = {
     "olaf_009.png": "Face",
     "olaf_028.png": "Carrot nose",
     "olaf_004.png": "Face",
-    "elsa_028.jpg": "Dress / body",
-    "elsa_015.jpg": "Dress / body",
     "elsa_026.jpg": "Hands",
+    "elsa_084.jpg": "Dress / body",
+    "elsa_107.jpg": "Hair / braid",
     "sven_004.jpg": "Fuzzy face & mane",
     "sven_005.jpg": "Fuzzy face & mane",
     "sven_008.jpg": "Fuzzy face & mane",
