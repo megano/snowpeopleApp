@@ -54,9 +54,9 @@ OPTIONS = {
 # Optional per-image explanation that overrides the generic "looked most at X" line.
 EXPLAIN = {
     "olaf_004.png": "The computer did look at Olaf's whole body, but it looked the *most* at the bright yellow part, his face!",
-    "sven_004.jpg": "Surprise! The computer looks at Sven's fuzzy face and mane in *every* picture. That's his special giveaway!",
-    "sven_005.jpg": "Surprise! The computer looks at Sven's fuzzy face and mane in *every* picture. That's his special giveaway!",
-    "sven_008.jpg": "Surprise! The computer looks at Sven's fuzzy face and mane in *every* picture. That's his special giveaway!",
+    "sven_004.jpg": "In all these images the computer looked most at his fuzzy face and mane.",
+    "sven_005.jpg": "In all these images the computer looked most at his fuzzy face and mane.",
+    "sven_008.jpg": "In all these images the computer looked most at his fuzzy face and mane.",
 }
 
 
