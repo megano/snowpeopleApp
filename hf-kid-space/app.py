@@ -155,8 +155,8 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     feedback = gr.Markdown(visible=False)
     heat = gr.Image(label="Where the computer looked", visible=False)
 
-    gallery = gr.Gallery(value=THUMB_PATHS, label="Tap a picture", columns=3,
-                         object_fit="cover", allow_preview=False)
+    gallery = gr.Gallery(value=THUMB_PATHS, label="Tap a picture", columns=3, rows=3,
+                         height=640, object_fit="cover", allow_preview=False)
 
     gallery.select(
         on_select, None,
