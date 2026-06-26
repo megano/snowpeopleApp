@@ -113,6 +113,7 @@ def on_select(evt: gr.SelectData):
         gr.update(visible=True),
         gr.update(value=None, visible=False),
         gr.update(visible=False),
+        gr.update(height="40vh"),
     )
 
 
@@ -160,7 +161,7 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
 
     gallery.select(
         on_select, None,
-        [state_path, state_correct, pred_md, options, reveal_btn, heat, feedback],
+        [state_path, state_correct, pred_md, options, reveal_btn, heat, feedback, gallery],
     )
     reveal_btn.click(on_reveal, [state_path, state_correct, options, seen_sven],
                      [heat, feedback, gallery, seen_sven])
