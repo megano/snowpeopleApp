@@ -121,7 +121,8 @@ def on_reveal(path, correct, guess, seen):
         return gr.update(), gr.update(value="Pick a picture first!", visible=True), gr.update(), seen
     overlay = _overlay(path)
     name = os.path.basename(path)
-    detail = EXPLAIN.get(name, f"The computer looked most at the **{correct}**.")
+    part = correct[0].lower() + correct[1:]      # lowercase the label mid-sentence
+    detail = EXPLAIN.get(name, f"The computer looked most at the **{part}**.")
     if name in SVEN_FILES:                       # track Sven reveals; reward seeing all three
         seen = list({*seen, name})
         if set(seen) >= SVEN_FILES:
