@@ -35,7 +35,7 @@ THUMB_PATHS = [p.replace("examples/", "examples_thumb/") for p in EXAMPLE_PATHS]
 CORRECT_PART = {
     "olaf_009.png": "Face",
     "olaf_028.png": "Carrot nose",
-    "olaf_004.png": "Whole body",
+    "olaf_004.png": "Face",
     "elsa_028.jpg": "Dress / body",
     "elsa_015.jpg": "Dress / body",
     "elsa_026.jpg": "Hands",
