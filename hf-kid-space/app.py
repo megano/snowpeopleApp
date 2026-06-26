@@ -51,6 +51,11 @@ OPTIONS = {
     "sven": ["Fuzzy face & mane", "Antlers", "Nose", "Legs"],
 }
 
+# Optional per-image explanation that overrides the generic "looked most at X" line.
+EXPLAIN = {
+    "olaf_004.png": "The computer did look at Olaf's whole body, but it looked the *most* at the bright yellow part, his face!",
+}
+
 
 class _Hook:
     def __init__(s, m): s.h = m.register_forward_hook(s.f)
@@ -112,12 +117,13 @@ def on_reveal(path, correct, guess):
     if not path:
         return gr.update(), gr.update(value="Pick a picture first!", visible=True), gr.update()
     overlay = _overlay(path)
+    detail = EXPLAIN.get(os.path.basename(path), f"The computer looked most at the **{correct}**.")
     if guess is None:
         fb = "Pick a part first, then press Show me!"
     elif guess == correct:
-        fb = f"### You got it! The computer looked most at the **{correct}**."
+        fb = f"### You got it! {detail}"
     else:
-        fb = f"### Good guess! But the computer actually looked most at the **{correct}**."
+        fb = f"### Good guess! {detail}"
     return (gr.update(value=overlay, visible=True), gr.update(value=fb, visible=True),
             gr.update(label="Pick again!"))
 
