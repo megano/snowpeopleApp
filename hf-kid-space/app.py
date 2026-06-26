@@ -101,10 +101,7 @@ def on_select(evt: gr.SelectData):
     char = name.split("_")[0]
     pred, idx, probs = learn.predict(PILImage.create(path))
     conf = float(probs[idx])
-    msg = (
-        f"### I am {conf:.0%} sure this is **{str(pred).title()}**!\n"
-        "Which part do you think I looked at most? Pick one, then press **Show me!**"
-    )
+    msg = f"### I am {conf:.0%} sure this is **{str(pred).title()}**!"
     return (
         path,
         CORRECT_PART[name],
@@ -113,7 +110,7 @@ def on_select(evt: gr.SelectData):
         gr.update(visible=True),
         gr.update(value=None, visible=False),
         gr.update(visible=False),
-        gr.update(height="40vh"),
+        gr.update(height=360),
     )
 
 
@@ -138,7 +135,7 @@ def on_reveal(path, correct, guess, seen):
             gr.update(value="### Pick again!"), seen)
 
 
-CSS = ".gradio-container { max-width: 640px !important; margin: 0 auto !important; }"
+CSS = ".gradio-container { max-width: 520px !important; margin: 0 auto !important; }"
 
 with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     gr.Markdown(
@@ -151,14 +148,14 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     seen_sven = gr.State([])
 
     pred_md = gr.Markdown(visible=False)
-    options = gr.Radio(choices=[], label="Which part did the computer look at most?", visible=False)
+    options = gr.Radio(choices=[], label="Which part did the computer look at most? Pick one, then press Show me!", visible=False)
     reveal_btn = gr.Button("Show me!", variant="primary", visible=False)
     feedback = gr.Markdown(visible=False)
     heat = gr.Image(show_label=False, visible=False)
 
     gallery_header = gr.Markdown("### Tap a picture")
     gallery = gr.Gallery(value=THUMB_PATHS, show_label=False, columns=3, rows=3,
-                         height="70vh", object_fit="cover", allow_preview=False)
+                         height=540, object_fit="cover", allow_preview=False)
 
     gallery.select(
         on_select, None,
