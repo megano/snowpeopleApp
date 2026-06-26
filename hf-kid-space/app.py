@@ -134,7 +134,7 @@ def on_reveal(path, correct, guess, seen):
             gr.update(value="### Pick again!"), seen)
 
 
-CSS = ".gradio-container { max-width: 520px !important; margin: 0 auto !important; }"
+CSS = ".gradio-container { max-width: 440px !important; margin: 0 auto !important; }"
 
 with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
     gr.Markdown(
