@@ -154,7 +154,7 @@ with gr.Blocks(title="How does the computer know?", css=CSS) as demo:
 
     gallery_header = gr.Markdown("### Tap a picture")
     gallery = gr.Gallery(value=THUMB_PATHS, show_label=False, columns=3,
-                         object_fit="cover", allow_preview=False)
+                         object_fit="contain", allow_preview=False)
 
     gallery.select(
         on_select, None,
