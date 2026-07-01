@@ -38,7 +38,7 @@ CORRECT_PART = {
     "olaf_004.png": "Face",
     "elsa_026.jpg": "Hands",
     "elsa_084.jpg": "Dress / body",
-    "elsa_057.jpg": "Face / eyes",
+    "elsa_057.jpg": "Hair / braid",
     "sven_004.jpg": "Fuzzy face & mane",
     "sven_005.jpg": "Fuzzy face & mane",
     "sven_008.jpg": "Fuzzy face & mane",
