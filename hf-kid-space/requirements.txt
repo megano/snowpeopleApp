@@ -1,4 +1,4 @@
 # Pinned to the training env (Python 3.12.13) so torch.load works on the Space.
 fastai==2.8.7
-torch==2.11.0
+torch==2.13.0
 gradio
